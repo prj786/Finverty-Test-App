@@ -64,7 +64,7 @@ export class IdentityComponent implements OnInit {
     const id = uuid.v4();
     setDoc(doc(this.db, 'client', id),
       {...this.clientInfo.address, ...this.clientInfo.client, ...this.clientInfo.identity}).then( _ => {
-      this.router.navigate(['/home']).then(_ => {
+      this.router.navigate(['/client-form/client']).then(_ => {
         this.service.clientForm$.next({address: null, identity: null, client: null});
         Notify.success('Client Added Successfully!');
       });
