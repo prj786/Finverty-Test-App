@@ -1,0 +1,40 @@
+<div class="h-screen flex flex-col gap-3.5">
+  <div class="flex justify-center h-5/6 w-full mt-10 overflow-y-auto">
+    <form class="flex flex-col gap-3.5" [formGroup]="identityForm">
+      <h1>Client Identity Form</h1>
+      <p>Fill gaps correctly to continue</p>
+      <p-divider></p-divider>
+      <div class="selector">
+        <label for="doctpy">Document Type: *</label>
+        <p-dropdown id="doctpy" [options]="docTypes" tooltipPosition="left" pTooltip="Required"  class="p-inputtext-sm" (onClear)="identityForm.get('docType')?.setValue(null)" formControlName="docType" optionLabel="name" optionValue="value" filterBy="name" [showClear]="true" placeholder="Select Document Type"></p-dropdown>
+        <small *ngIf="validator('docType')" class="p-error">Document Type is not valid.</small>
+      </div>
+      <div class="selector">
+        <label for="series">Series Number: *</label>
+        <input id="series" type="text" class="p-inputtext-sm" pTooltip="Required"  formControlName="seriesNumber" pInputText />
+        <small *ngIf="validator('seriesNumber')" class="p-error">Series Number is not valid.</small>
+      </div>
+      <div class="sm:flex-row flex-col flex gap-3.5">
+        <div class="selector">
+          <label for="issuedBy">Issued By:</label>
+          <input id="issuedBy" type="text" class="p-inputtext-sm" formControlName="issuedBy" pInputText />
+        </div>
+        <div class="selector">
+          <label for="doi">Date of issue: *</label>
+          <p-calendar id="doi" class="p-inputtext-sm" formControlName="dateOfIssue"></p-calendar>
+          <small *ngIf="validator('dateOfIssue')" class="p-error">Date Of Issue is not valid.</small>
+        </div>
+      </div>
+      <div class="sm:flex-row flex-col flex gap-3.5">
+        <div class="selector">
+          <label for="file">File:</label>
+          <p-fileUpload id="file" mode="basic" name="demo[]" (onUpload)="onUpload($event)"></p-fileUpload>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="h-1/6">
+    <p-divider></p-divider>
+    <fin-paginator prevStepTitle="Back" [valid]="identityForm.valid" [step]="2" nextStepTitle="Finish" (prevStep)="prevPage()" (nextStep)="submitForm()"></fin-paginator>
+  </div>
+</div>

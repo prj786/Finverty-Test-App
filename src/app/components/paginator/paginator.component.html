@@ -1,0 +1,16 @@
+<div class="flex w-full justify-between">
+  <div class="sider">
+    <button (click)="prevStep.emit()" pButton type="button" [label]="prevStepTitle" class="p-button-secondary"></button>
+    <span class="sider arr">
+      <i class="pi pi-caret-left text-gray-300"></i>
+      <p *ngIf="info" class="font-light">{{info.prevRoute}}</p>
+    </span>
+  </div>
+  <div class="sider">
+    <span class="sider arr">
+      <p *ngIf="info" class="font-light text-amber-500">{{info.nextRoute}}</p>
+      <i class="pi pi-caret-right text-gray-300"></i>
+    </span>
+    <button [disabled]="!valid" (click)="nextStep.emit()" pButton type="button" [label]="nextStepTitle" class="p-button-primary"></button>
+  </div>
+</div>

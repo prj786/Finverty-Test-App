@@ -1,0 +1,60 @@
+<div class="h-screen flex flex-col gap-3.5">
+  <div class="flex justify-center h-5/6 w-full mt-10 overflow-y-auto">
+    <form class="flex flex-col gap-3.5" [formGroup]="clientDetailsForm">
+      <h1>Client Form</h1>
+      <p>Fill gaps correctly to continue</p>
+      <p-divider></p-divider>
+      <div class="sm:flex-row flex-col flex gap-3.5">
+        <div class="selector">
+          <label for="name">Name:*</label>
+          <input id="name" type="text" pTooltip="Required"  class="p-inputtext-sm" formControlName="name" pInputText />
+          <small *ngIf="validator('name')" class="p-error">Name is not valid.</small>
+        </div>
+        <div class="selector">
+          <label for="midname">Middle Name</label>
+          <input id="midname" type="text" class="p-inputtext-sm" formControlName="middleName" pInputText />
+        </div>
+        <div class="selector">
+          <label for="lastName">Last Name: *</label>
+          <input id="lastName" type="text" pTooltip="Required" class="p-inputtext-sm" formControlName="lastName" pInputText />
+          <small *ngIf="validator('lastName')" class="p-error">Last Name is not valid.</small>
+        </div>
+      </div>
+      <div class="sm:flex-row flex-col flex gap-3.5">
+        <div class="selector">
+          <label for="dob">Date of Birth: *</label>
+          <p-calendar [maxDate]="maxDate" pTooltip="Required"  id="dob" class="p-inputtext-sm" formControlName="date"></p-calendar>
+          <small *ngIf="validator('date')" class="p-error">Date is not valid.</small>
+        </div>
+        <div class="selector">
+          <label for="tel">Phone Number: *</label>
+          <input id="tel" pTooltip="Required with 11 digits" type="tel" [maxLength]="11" class="p-inputtext-sm" formControlName="phoneNumber" pInputText />
+          <small *ngIf="validator('phoneNumber')" class="p-error">Phone Number is not valid.</small>
+        </div>
+        <p-checkbox label="Do not send SMS" [value]="clientDetailsForm.get('preventSms')?.value" (onChange)="checkPrev($event)"></p-checkbox>
+      </div>
+      <div class="sm:flex-row flex-col flex gap-3.5 h-[95px]">
+        <div class="selector">
+          <label for="gender">Gender:</label>
+          <p-dropdown id="gender" class="p-inputtext-sm" [options]="genders" formControlName="gender" optionLabel="name" optionValue="value"></p-dropdown>
+        </div>
+        <div class="selector">
+          <label for="group">Group: *</label>
+          <p-dropdown id="group" class="p-inputtext-sm" pTooltip="Required"  placeholder="Client Groups" [options]="clientGroups" formControlName="clientGroup" optionLabel="name" optionValue="value"></p-dropdown>
+          <small *ngIf="validator('clientGroup')" class="p-error">Group is not valid.</small>
+        </div>
+        <div class="selector">
+          <label for="coordinator">Coordinator:</label>
+          <p-dropdown id="coordinator" class="p-inputtext-sm" [options]="coordinators" formControlName="coordinator" optionLabel="name" optionValue="value"></p-dropdown>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="h-1/6">
+    <p-divider></p-divider>
+    <fin-paginator prevStepTitle="Back" [valid]="clientDetailsForm.valid" (prevStep)="prevStep()" (nextStep)="nexStep()"></fin-paginator>
+  </div>
+</div>
+
+
+

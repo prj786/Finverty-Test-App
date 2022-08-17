@@ -1,0 +1,40 @@
+<div class="flex flex-col gap-12">
+  <div class="flex justify-between items-center mt-12">
+    <p>Home</p>
+    <div class="flex gap-2.5">
+      <button class="p-button-sm" (click)="resetAndGo()" pButton pRipple label="Add new Client" icon="pi pi-plus"></button>
+      <button *ngIf="clientInfo.client"
+              class="p-button-sm p-button-help" routerLink="/client-form/client" pButton pRipple label="Continue Editing" icon="pi pi-user-edit"></button>
+    </div>
+  </div>
+
+  <p-table styleClass="p-datatable-sm" [loading]="loading" [value]="clients" [rowHover]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>D.O.B</th>
+        <th>Country</th>
+        <th>City</th>
+        <th>Date of Issue</th>
+        <th>Client Group</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-client>
+      <tr>
+        <td>{{client.name}}</td>
+        <td>{{client.lastName}}</td>
+        <td>{{client.date | date}}</td>
+        <td>{{client.country}}</td>
+        <td>{{client.city}}</td>
+        <td>{{client.dateOfIssue | date}}</td>
+        <td>{{clientGroup[client.clientGroup]}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

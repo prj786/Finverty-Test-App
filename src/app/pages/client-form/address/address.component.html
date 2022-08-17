@@ -1,0 +1,49 @@
+<div class="h-screen flex flex-col gap-3.5">
+  <div class="flex h-5/6 justify-center w-full mt-10 overflow-y-auto">
+    <form class="flex flex-col gap-3.5" [formGroup]="addressForm">
+      <h1>Client Address Form</h1>
+      <p>Fill gaps correctly to continue</p>
+      <p-divider></p-divider>
+      <div class="selector">
+        <label for="country">Country: *</label>
+        <p-dropdown id="country" [options]="countryList"  pTooltip="Required" tooltipPosition="left" class="p-inputtext-sm" (onClear)="addressForm.get('country')?.setValue(null)" formControlName="country" optionLabel="name" optionValue="code" filterBy="name" [showClear]="true" placeholder="Select a Country">
+          <ng-template let-country pTemplate="item">
+            <div class="flex gap-3.5" (click)="addressForm.get('country')?.setValue(country.code)">
+              <img class="w-4" [src]="country.image"  [alt]="country.name"/>
+              <div>{{country.name}}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <small *ngIf="validator('country')" class="p-error">Country is not valid.</small>
+      </div>
+      <div class="sm:flex-row flex-col flex gap-3.5">
+        <div class="selector">
+          <label for="mdname">City: *</label>
+          <input id="mdname" type="address" pTooltip="Required" class="p-inputtext-sm" formControlName="city" pInputText />
+          <small *ngIf="validator('city')" class="p-error">City is not valid.</small>
+        </div>
+        <div class="selector">
+          <label for="lastName">Area</label>
+          <input id="lastName" type="text" class="p-inputtext-sm" formControlName="area" pInputText />
+        </div>
+      </div>
+      <div class="sm:flex-row flex-col flex gap-3.5">
+        <div class="selector">
+          <label for="street">Street:</label>
+          <input id="street" type="address" class="p-inputtext-sm" formControlName="street" pInputText />
+        </div>
+        <div class="selector">
+          <label for="house">House:</label>
+          <input id="house" type="text" class="p-inputtext-sm" formControlName="house" pInputText />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="h-1/6">
+    <p-divider></p-divider>
+    <fin-paginator prevStepTitle="Back" [step]="1" [valid]="addressForm.valid" (prevStep)="prevStep()" (nextStep)="nexStep()"></fin-paginator>
+  </div>
+</div>
+
+
+
