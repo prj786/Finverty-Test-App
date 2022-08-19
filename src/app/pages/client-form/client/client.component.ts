@@ -13,6 +13,7 @@ import {Notify} from "notiflix/build/notiflix-notify-aio";
 })
 export class ClientComponent implements OnInit {
   maxDate: Date = new Date();
+  preventSend: boolean = false;
 
   clientInfo: ClientFormModel = {
     client: null,
@@ -29,7 +30,7 @@ export class ClientComponent implements OnInit {
     phoneNumber: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern("^[0-9]*$")]),
     clientGroup: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
-    preventSms: new FormControl(false)
+    preventSms: new FormControl(this.preventSend)
   });
 
   genders: any[] = [
@@ -66,10 +67,6 @@ export class ClientComponent implements OnInit {
   // to shorten work time
   validator(field: string): boolean | undefined {
     return !this.clientDetailsForm.get(field)?.valid && this.clientDetailsForm.get(field)?.touched;
-  }
-
-  checkPrev(ev: any): void {
-    this.clientDetailsForm.get('preventSms')?.setValue(ev.originalEvent.returnValue);
   }
 
   updateData(): void {

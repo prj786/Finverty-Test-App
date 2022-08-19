@@ -31,7 +31,7 @@
           <input id="tel" pTooltip="Required with 11 digits" type="tel" [maxLength]="11" class="p-inputtext-sm" formControlName="phoneNumber" pInputText />
           <small *ngIf="validator('phoneNumber')" class="p-error">Phone Number is not valid.</small>
         </div>
-        <p-checkbox label="Do not send SMS" [value]="clientDetailsForm.get('preventSms')?.value" (onChange)="checkPrev($event)"></p-checkbox>
+        <p-checkbox label="Do not send SMS" [binary]="true" [formControl]="$any(clientDetailsForm.controls['preventSms'])"></p-checkbox>
       </div>
       <div class="sm:flex-row flex-col flex gap-3.5 h-[95px]">
         <div class="selector">
